@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvx2cp5hjvyyg"]
+
+[ext_resource type="Script" path="res://Scenes/Player/camera.gd" id="1_e4fpr"]
+
+[node name="Camera" type="Camera2D"]
+script = ExtResource("1_e4fpr")
+
+[node name="Positions" type="Node" parent="."]
+
+[node name="TopLeft" type="Marker2D" parent="Positions"]
+
+[node name="BottomRight" type="Marker2D" parent="Positions"]
+position = Vector2(320, 240)

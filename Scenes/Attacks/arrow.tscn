@@ -17,8 +17,8 @@ texture = ExtResource("2_i06ps")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_du8yk")
+disabled = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

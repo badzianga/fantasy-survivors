@@ -7,16 +7,20 @@ const SPEED = 64.0
 @onready var marker := $Marker2D
 @onready var sprite := $Sprite
 @onready var arrow_pos := $Marker2D/ArrowPosition
+@onready var bow_timer := $Marker2D/BowCooldown
+@onready var progress_bar := $CooldownBar
 
 var direction := Vector2.ZERO
 var smoothed_mouse_pos := Vector2.ZERO
 var arrow_scene := preload("res://Scenes/Attacks/arrow.tscn")
+
 
 func _physics_process(_delta: float) -> void:
 	_handle_movement()
 	_handle_animation()
 	_rotate_weapon()
 	_handle_arrow_shooting()
+	_update_cooldown_bar()
 
 
 func _handle_movement() -> void:
@@ -43,9 +47,18 @@ func _handle_animation() -> void:
 
 
 func _handle_arrow_shooting() -> void:
-	if Input.is_action_just_pressed("shoot"):
-		var arrow := arrow_scene.instantiate() as Area2D
+	if Input.is_action_pressed("shoot") and bow_timer.is_stopped():
+		var arrow := arrow_scene.instantiate() as Arrow
 		arrow.global_position = arrow_pos.global_position
 		arrow.rotation_degrees = marker.rotation_degrees
 		arrow.direction = (get_global_mouse_position() - global_position).normalized()
 		get_tree().get_root().add_child(arrow)
+		bow_timer.start()
+
+
+func _update_cooldown_bar() -> void:
+	progress_bar.value = 1.0 - (bow_timer.time_left / 1.25)
+	if progress_bar.value == 1.0:
+		progress_bar.modulate = Color(0.5, 1.0, 0.5, 1.0)
+	else:
+		progress_bar.modulate = Color(1.0, 1.0, 1.0, 1.0)

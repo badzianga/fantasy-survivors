@@ -73,7 +73,7 @@ position = Vector2(0, -6)
 texture = ExtResource("2_4sivi")
 hframes = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lixgx")
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -86,7 +86,21 @@ texture = ExtResource("3_icu4p")
 [node name="ArrowPosition" type="Marker2D" parent="Marker2D"]
 position = Vector2(10, 0)
 
+[node name="BowCooldown" type="Timer" parent="Marker2D"]
+wait_time = 1.25
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_n8x5e")
 }
+
+[node name="CooldownBar" type="ProgressBar" parent="."]
+offset_left = -8.0
+offset_top = 5.0
+offset_right = 8.0
+offset_bottom = 9.0
+mouse_filter = 2
+max_value = 1.0
+value = 1.0
+show_percentage = false

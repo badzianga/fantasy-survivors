@@ -10,6 +10,8 @@ extends CharacterBody2D
 @onready var arrow_pos := $Marker2D/ArrowPosition
 @onready var bow_timer := $Marker2D/BowCooldown
 @onready var progress_bar := $CooldownBar
+@onready var shoot_sound := $Marker2D/ShootSound
+@onready var walk_sound := $WalkSound
 
 var direction := Vector2.ZERO
 var smoothed_mouse_pos := Vector2.ZERO
@@ -39,6 +41,10 @@ func _handle_movement() -> void:
 
 	velocity = direction.normalized() * SPEED
 
+	if velocity != Vector2.ZERO and not walk_sound.playing:
+		walk_sound.pitch_scale = randf_range(0.8, 1.2)
+		walk_sound.play()
+
 	move_and_slide()
 
 
@@ -64,6 +70,9 @@ func _handle_arrow_shooting() -> void:
 		arrow.direction = (get_global_mouse_position() - global_position).normalized()
 		get_tree().get_root().add_child(arrow)
 		bow_timer.start()
+		
+		shoot_sound.pitch_scale = randf_range(0.8, 1.2)
+		shoot_sound.play()
 
 
 func _update_cooldown_bar() -> void:

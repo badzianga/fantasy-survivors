@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsj26l6mrnbq0"]
+[gd_scene load_steps=5 format=3 uid="uid://bsj26l6mrnbq0"]
 
 [ext_resource type="TileSet" uid="uid://ci1jf04gapemb" path="res://Resources/Tilesets/grasslands.tres" id="1_eumqk"]
 [ext_resource type="PackedScene" uid="uid://d1pi75lv7e76b" path="res://Scenes/Player/player.tscn" id="2_2v1se"]
 [ext_resource type="PackedScene" uid="uid://dvx2cp5hjvyyg" path="res://Scenes/Player/camera.tscn" id="3_hky3a"]
+[ext_resource type="PackedScene" uid="uid://cbdpfrpjxh58n" path="res://Scenes/Enemies/slime.tscn" id="4_pn8cq"]
 
 [node name="World" type="Node2D"]
 
@@ -26,5 +27,8 @@ position = Vector2(360, 304)
 
 [node name="BottomRight" parent="Player/Camera/Positions" index="1"]
 position = Vector2(640, 480)
+
+[node name="Slime" parent="." instance=ExtResource("4_pn8cq")]
+position = Vector2(417, 282)
 
 [editable path="Player/Camera"]

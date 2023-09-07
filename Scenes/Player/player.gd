@@ -4,7 +4,6 @@ extends CharacterBody2D
 const ArrowScene = preload("res://Scenes/Attacks/arrow.tscn")
 
 @export var SPEED := 64.0
-@export var max_hp := 10
 
 @onready var animation_player := $AnimationPlayer
 @onready var marker := $Marker2D
@@ -14,16 +13,16 @@ const ArrowScene = preload("res://Scenes/Attacks/arrow.tscn")
 @onready var progress_bar := $CooldownBar
 @onready var shoot_sound := $Marker2D/ShootSound
 @onready var walk_sound := $WalkSound
+@onready var health := $HealthComponent as HealthComponent
 
 var direction := Vector2.ZERO
 var smoothed_mouse_pos := Vector2.ZERO
 
-var hp := max_hp
-
 
 func _ready() -> void:
-	Hud.set_max_health(max_hp)
-	Hud.set_health(hp)
+	Hud.set_max_health(health.max_health)
+	Hud.set_health(health.health)
+	health.health_changed.connect(_on_health_changed)
 
 
 func _physics_process(_delta: float) -> void:
@@ -84,13 +83,12 @@ func _update_cooldown_bar() -> void:
 		progress_bar.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 
-func hurt(damage: int) -> void:
-	hp -= damage
-	Hud.set_health(hp)
+func _on_health_changed() -> void:
+	Hud.set_health(health.health)
 
 
 func DEBUG() -> void:
 	if Input.is_action_just_pressed("DEBUG_hurt"):
-		hurt(1)
+		health.apply_damage(1)
 	if Input.is_action_just_pressed("DEBUG_heal"):
-		hurt(-1)
+		health.apply_damage(-1)

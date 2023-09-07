@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1pi75lv7e76b"]
+[gd_scene load_steps=12 format=3 uid="uid://d1pi75lv7e76b"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_1jdm4"]
 [ext_resource type="Texture2D" uid="uid://bkyjuldom5sdl" path="res://Assets/Entities/Characters/archer.png" id="2_4sivi"]
 [ext_resource type="Texture2D" uid="uid://cqieyxqxj3mu8" path="res://Assets/Weapons/bow.png" id="3_icu4p"]
 [ext_resource type="AudioStream" uid="uid://btdofk6upxylq" path="res://Assets/SFX/shoot_sound.mp3" id="4_6ig43"]
 [ext_resource type="AudioStream" uid="uid://bko3vhajqgvrq" path="res://Assets/SFX/grass_sound.mp3" id="5_a2uvs"]
+[ext_resource type="PackedScene" uid="uid://d2gwas7ev3y6l" path="res://Scenes/Components/health_component.tscn" id="6_ncuor"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lixgx"]
 size = Vector2(6, 6)
@@ -114,3 +115,6 @@ show_percentage = false
 [node name="WalkSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_a2uvs")
 bus = &"Sounds"
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_ncuor")]
+max_health = 10

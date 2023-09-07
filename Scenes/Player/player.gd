@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 
+const ArrowScene = preload("res://Scenes/Attacks/arrow.tscn")
+
 @export var SPEED := 64.0
 @export var max_hp := 10
 
@@ -15,7 +17,6 @@ extends CharacterBody2D
 
 var direction := Vector2.ZERO
 var smoothed_mouse_pos := Vector2.ZERO
-var arrow_scene := preload("res://Scenes/Attacks/arrow.tscn")
 
 var hp := max_hp
 
@@ -64,10 +65,10 @@ func _handle_animation() -> void:
 
 func _handle_arrow_shooting() -> void:
 	if Input.is_action_pressed("shoot") and bow_timer.is_stopped():
-		var arrow := arrow_scene.instantiate() as Arrow
+		var arrow := ArrowScene.instantiate() as Arrow
 		arrow.global_position = arrow_pos.global_position
 		arrow.rotation_degrees = marker.rotation_degrees
-		arrow.direction = (get_global_mouse_position() - global_position).normalized()
+		arrow.direction = (get_global_mouse_position() - arrow_pos.global_position).normalized()
 		get_tree().get_root().add_child(arrow)
 		bow_timer.start()
 		
@@ -76,7 +77,7 @@ func _handle_arrow_shooting() -> void:
 
 
 func _update_cooldown_bar() -> void:
-	progress_bar.value = 1.0 - (bow_timer.time_left / 1.25)
+	progress_bar.value = 1.0 - (bow_timer.time_left / bow_timer.wait_time)
 	if progress_bar.value == 1.0:
 		progress_bar.modulate = Color(0.5, 1.0, 0.5, 1.0)
 	else:

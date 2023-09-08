@@ -14,6 +14,8 @@ const ArrowScene = preload("res://Scenes/Attacks/arrow.tscn")
 @onready var shoot_sound := $Marker2D/ShootSound
 @onready var walk_sound := $WalkSound
 @onready var health := $HealthComponent as HealthComponent
+@onready var effects := $Effects
+
 
 var direction := Vector2.ZERO
 var smoothed_mouse_pos := Vector2.ZERO
@@ -86,6 +88,7 @@ func _update_cooldown_bar() -> void:
 
 
 func _on_health_changed() -> void:
+	effects.play("hurt")
 	Hud.set_health(health.health)
 
 

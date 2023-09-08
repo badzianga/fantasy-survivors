@@ -1,14 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://cbdpfrpjxh58n"]
+[gd_scene load_steps=16 format=3 uid="uid://cbdpfrpjxh58n"]
 
 [ext_resource type="Texture2D" uid="uid://6svkhxj8ddfb" path="res://Assets/Entities/Enemies/slime.png" id="1_5m8th"]
 [ext_resource type="Script" path="res://Scenes/Enemies/slime.gd" id="1_q8j4s"]
 [ext_resource type="AudioStream" uid="uid://boemkucmq2f3j" path="res://Assets/SFX/slime_jump.mp3" id="2_li8am"]
+[ext_resource type="Shader" path="res://Resources/Shaders/flash_effect.gdshader" id="2_tscp5"]
 [ext_resource type="PackedScene" uid="uid://d2gwas7ev3y6l" path="res://Scenes/Components/health_component.tscn" id="4_admcf"]
 [ext_resource type="PackedScene" uid="uid://fa5g4m5iwfjq" path="res://Scenes/Components/hurtbox_component.tscn" id="5_jjhsj"]
 [ext_resource type="PackedScene" uid="uid://kxw2r2s0vn3g" path="res://Scenes/Components/hitbox_component.tscn" id="6_dh4qa"]
+[ext_resource type="PackedScene" uid="uid://cvglxy8i6b4mu" path="res://Scenes/Misc/effects.tscn" id="8_s6724"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgiv6"]
 size = Vector2(8, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_44do7"]
+resource_local_to_scene = true
+shader = ExtResource("2_tscp5")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_state = 0.0
 
 [sub_resource type="Animation" id="Animation_aoy3y"]
 length = 0.001
@@ -87,6 +95,7 @@ script = ExtResource("1_q8j4s")
 shape = SubResource("RectangleShape2D_rgiv6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_44do7")
 position = Vector2(0, -2)
 texture = ExtResource("1_5m8th")
 hframes = 5
@@ -117,3 +126,5 @@ position = Vector2(0, -2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_tlbdh")
+
+[node name="Effects" parent="." instance=ExtResource("8_s6724")]

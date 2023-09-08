@@ -1,12 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1pi75lv7e76b"]
+[gd_scene load_steps=16 format=3 uid="uid://d1pi75lv7e76b"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_1jdm4"]
 [ext_resource type="Texture2D" uid="uid://bkyjuldom5sdl" path="res://Assets/Entities/Characters/archer.png" id="2_4sivi"]
+[ext_resource type="Shader" path="res://Resources/Shaders/flash_effect.gdshader" id="2_hk6i1"]
 [ext_resource type="Texture2D" uid="uid://cqieyxqxj3mu8" path="res://Assets/Weapons/bow.png" id="3_icu4p"]
 [ext_resource type="AudioStream" uid="uid://btdofk6upxylq" path="res://Assets/SFX/shoot_sound.mp3" id="4_6ig43"]
 [ext_resource type="AudioStream" uid="uid://bko3vhajqgvrq" path="res://Assets/SFX/grass_sound.mp3" id="5_a2uvs"]
 [ext_resource type="PackedScene" uid="uid://d2gwas7ev3y6l" path="res://Scenes/Components/health_component.tscn" id="6_ncuor"]
 [ext_resource type="PackedScene" uid="uid://fa5g4m5iwfjq" path="res://Scenes/Components/hurtbox_component.tscn" id="7_yl1iy"]
+[ext_resource type="PackedScene" uid="uid://cvglxy8i6b4mu" path="res://Scenes/Misc/effects.tscn" id="9_a76r3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0d3f"]
+resource_local_to_scene = true
+shader = ExtResource("2_hk6i1")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_state = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lixgx"]
 size = Vector2(6, 6)
@@ -73,6 +81,7 @@ motion_mode = 1
 script = ExtResource("1_1jdm4")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_g0d3f")
 position = Vector2(0, -6)
 texture = ExtResource("2_4sivi")
 hframes = 6
@@ -120,10 +129,14 @@ bus = &"Sounds"
 [node name="HealthComponent" parent="." instance=ExtResource("6_ncuor")]
 max_health = 10
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_yl1iy")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "collision_shape") instance=ExtResource("7_yl1iy")]
 collision_layer = 2
 collision_mask = 16
+cooldown_seconds = 0.5
 health_component = NodePath("../HealthComponent")
+collision_shape = NodePath("CollisionShape")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_lixgx")
+
+[node name="Effects" parent="." instance=ExtResource("9_a76r3")]

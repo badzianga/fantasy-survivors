@@ -105,6 +105,5 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_enpww")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_admcf")]
-max_health = 3
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

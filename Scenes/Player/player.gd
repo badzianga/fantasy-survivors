@@ -24,6 +24,8 @@ func _ready() -> void:
 	Hud.set_health(health.health)
 	health.health_changed.connect(_on_health_changed)
 
+	GameData.player = self
+
 
 func _physics_process(_delta: float) -> void:
 	_handle_movement()

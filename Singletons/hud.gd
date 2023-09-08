@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var health_bar := $Control/HealthBar
 
+
 func set_health(hp: int) -> void:
 	health_bar.value = hp
 

@@ -3,17 +3,17 @@ extends CharacterBody2D
 
 @export var speed := 16.0
 
-@onready var sprite := $Sprite
-@onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
-@onready var health := $HealthComponent as HealthComponent
+var direction: Vector2
 
+@onready var sprite := $Sprite
+@onready var health := $HealthComponent as HealthComponent
 
 func _ready() -> void:
 	health.health_depleted.connect(_on_health_depleted)
 
 
 func _physics_process(_delta: float) -> void:
-	var direction := global_position.direction_to(player.global_position)
+	direction = global_position.direction_to(GameData.player.global_position)
 	velocity = direction * speed
 	
 	sprite.flip_h = velocity.x < 0

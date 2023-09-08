@@ -1,5 +1,5 @@
 class_name Arrow
-extends Area2D
+extends HitboxComponent
 
 
 @export var speed := 80.0

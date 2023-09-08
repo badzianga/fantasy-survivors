@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbdpfrpjxh58n"]
+[gd_scene load_steps=13 format=3 uid="uid://cbdpfrpjxh58n"]
 
 [ext_resource type="Texture2D" uid="uid://6svkhxj8ddfb" path="res://Assets/Entities/Enemies/slime.png" id="1_5m8th"]
 [ext_resource type="Script" path="res://Scenes/Enemies/slime.gd" id="1_q8j4s"]
 [ext_resource type="AudioStream" uid="uid://boemkucmq2f3j" path="res://Assets/SFX/slime_jump.mp3" id="2_li8am"]
 [ext_resource type="PackedScene" uid="uid://d2gwas7ev3y6l" path="res://Scenes/Components/health_component.tscn" id="4_admcf"]
+[ext_resource type="PackedScene" uid="uid://fa5g4m5iwfjq" path="res://Scenes/Components/hurtbox_component.tscn" id="5_jjhsj"]
+[ext_resource type="PackedScene" uid="uid://kxw2r2s0vn3g" path="res://Scenes/Components/hitbox_component.tscn" id="6_dh4qa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgiv6"]
 size = Vector2(8, 4)
@@ -74,15 +76,18 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enpww"]
 size = Vector2(8, 7)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlbdh"]
+size = Vector2(10, 6)
+
 [node name="Slime" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_q8j4s")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_rgiv6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
 texture = ExtResource("1_5m8th")
 hframes = 5
 
@@ -96,14 +101,19 @@ libraries = {
 stream = ExtResource("2_li8am")
 bus = &"Sounds"
 
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 4
+[node name="HealthComponent" parent="." instance=ExtResource("4_admcf")]
 
-[node name="CollisionShape" type="CollisionShape2D" parent="Hurtbox"]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_jjhsj")]
+position = Vector2(0, -2)
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_enpww")
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_admcf")]
+[node name="HitboxComponent" parent="." instance=ExtResource("6_dh4qa")]
+position = Vector2(0, -2)
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_tlbdh")

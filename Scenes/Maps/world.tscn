@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbdpfrpjxh58n" path="res://Scenes/Enemies/slime.tscn" id="4_pn8cq"]
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_eumqk")

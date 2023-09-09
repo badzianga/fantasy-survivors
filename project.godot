@@ -23,6 +23,7 @@ buses/default_bus_layout="res://Resources/Bus/bus_layout.tres"
 
 Hud="*res://Singletons/hud.tscn"
 GameData="*res://Singletons/game_data.gd"
+MusicPlayer="*res://Singletons/music_player.tscn"
 
 [display]
 

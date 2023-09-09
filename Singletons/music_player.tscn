@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgew8aqbbofot"]
+
+[ext_resource type="AudioStream" uid="uid://ktgh2mqy3oev" path="res://Assets/Music/DarxieLand.mp3" id="1_5athe"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_5athe")
+autoplay = true
+bus = &"Music"

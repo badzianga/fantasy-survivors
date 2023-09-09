@@ -1,0 +1,180 @@
+[gd_scene load_steps=4 format=3 uid="uid://ucc2o6rh5amv"]
+
+[ext_resource type="Script" path="res://Scenes/Menu/main_menu.gd" id="1_2gx5m"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gqwyh"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_8jia1"]
+events = [SubResource("InputEventKey_gqwyh")]
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2gx5m")
+
+[node name="BgColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.301961, 0.301961, 0.784314, 1)
+
+[node name="Menu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 50.0
+grow_horizontal = 2
+text = "Fantasy Survivors"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -10.0
+offset_right = 32.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Start"
+
+[node name="Options" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Options"
+
+[node name="Exit" type="Button" parent="Menu/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Exit"
+
+[node name="Options" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options/HBoxContainer"]
+layout_mode = 2
+
+[node name="Fullscreen" type="CheckBox" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Fullscreen"
+
+[node name="VSync" type="CheckBox" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "V-Sync"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Master" type="HSlider" parent="Options/HBoxContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+min_value = -60.0
+max_value = 0.0
+
+[node name="MasterLabel" type="Label" parent="Options/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Master"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Music" type="HSlider" parent="Options/HBoxContainer/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+min_value = -60.0
+max_value = 0.0
+
+[node name="MusicLabel" type="Label" parent="Options/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Music"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Options/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Sounds" type="HSlider" parent="Options/HBoxContainer/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+min_value = -60.0
+max_value = 0.0
+
+[node name="SoundsLabel" type="Label" parent="Options/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Sounds"
+
+[node name="Back" type="Button" parent="Options"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -13.5
+offset_top = -24.0
+offset_right = 13.5
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+shortcut = SubResource("Shortcut_8jia1")
+text = "Back"
+
+[connection signal="pressed" from="Menu/Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Menu/Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Menu/Buttons/Exit" to="." method="_on_exit_pressed"]
+[connection signal="toggled" from="Options/HBoxContainer/VBoxContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="Options/HBoxContainer/VBoxContainer/VSync" to="." method="_on_v_sync_toggled"]
+[connection signal="value_changed" from="Options/HBoxContainer/VBoxContainer/HBoxContainer/Master" to="." method="_on_master_value_changed"]
+[connection signal="value_changed" from="Options/HBoxContainer/VBoxContainer/HBoxContainer2/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="Options/HBoxContainer/VBoxContainer/HBoxContainer3/Sounds" to="." method="_on_sounds_value_changed"]
+[connection signal="pressed" from="Options/Back" to="." method="_on_back_pressed"]

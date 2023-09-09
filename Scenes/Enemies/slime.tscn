@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbdpfrpjxh58n"]
+[gd_scene load_steps=19 format=3 uid="uid://cbdpfrpjxh58n"]
 
 [ext_resource type="Texture2D" uid="uid://6svkhxj8ddfb" path="res://Assets/Entities/Enemies/slime.png" id="1_5m8th"]
 [ext_resource type="Script" path="res://Scenes/Enemies/slime.gd" id="1_q8j4s"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://d2gwas7ev3y6l" path="res://Scenes/Components/health_component.tscn" id="4_admcf"]
 [ext_resource type="PackedScene" uid="uid://fa5g4m5iwfjq" path="res://Scenes/Components/hurtbox_component.tscn" id="5_jjhsj"]
 [ext_resource type="PackedScene" uid="uid://kxw2r2s0vn3g" path="res://Scenes/Components/hitbox_component.tscn" id="6_dh4qa"]
-[ext_resource type="PackedScene" uid="uid://cvglxy8i6b4mu" path="res://Scenes/Misc/effects.tscn" id="8_s6724"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgiv6"]
 size = Vector2(8, 4)
@@ -32,18 +31,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("JumpSound:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_utho6"]
 resource_name = "walk"
@@ -62,18 +49,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("JumpSound:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.65),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vv3j7"]
 _data = {
@@ -86,6 +61,97 @@ size = Vector2(8, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tlbdh"]
 size = Vector2(10, 6)
+
+[sub_resource type="Animation" id="Animation_k3yqu"]
+resource_name = "hurt"
+length = 0.2
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material:shader_parameter/flash_state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_00tld"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material:shader_parameter/flash_state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cshbx"]
+resource_name = "death"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0jqn7"]
+_data = {
+"RESET": SubResource("Animation_00tld"),
+"death": SubResource("Animation_cshbx"),
+"hurt": SubResource("Animation_k3yqu")
+}
 
 [node name="Slime" type="CharacterBody2D"]
 motion_mode = 1
@@ -127,4 +193,7 @@ position = Vector2(0, -2)
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_tlbdh")
 
-[node name="Effects" parent="." instance=ExtResource("8_s6724")]
+[node name="Effects" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0jqn7")
+}

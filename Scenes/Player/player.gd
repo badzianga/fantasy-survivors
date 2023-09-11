@@ -15,6 +15,7 @@ const ArrowScene = preload("res://Scenes/Attacks/arrow.tscn")
 @onready var walk_sound := $WalkSound
 @onready var health := $HealthComponent as HealthComponent
 @onready var effects := $Effects
+@onready var exp_component := $ExpComponent as ExpComponent
 
 
 var direction := Vector2.ZERO
@@ -25,6 +26,7 @@ func _ready() -> void:
 	Hud.set_max_health(health.max_health)
 	Hud.set_health(health.health)
 	health.health_changed.connect(_on_health_changed)
+	exp_component.exp_updated.connect(_on_exp_updated)
 
 	GameData.player = self
 
@@ -90,6 +92,10 @@ func _update_cooldown_bar() -> void:
 func _on_health_changed() -> void:
 	effects.play("hurt")
 	Hud.set_health(health.health)
+
+
+func _on_exp_updated() -> void:
+	Hud.set_exp(exp_component.experience)
 
 
 func DEBUG() -> void:

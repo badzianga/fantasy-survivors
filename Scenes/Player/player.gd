@@ -29,7 +29,7 @@ func _ready() -> void:
 	GameData.player = self
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:	
 	_handle_movement()
 	_handle_animation()
 	_rotate_weapon()

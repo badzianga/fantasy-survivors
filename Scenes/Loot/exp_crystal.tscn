@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6sarxx06myvn"]
+
+[ext_resource type="Texture2D" uid="uid://cbvov4xd5hgtp" path="res://Assets/Loot/exp.png" id="1_fh0qi"]
+[ext_resource type="Script" path="res://Scenes/Loot/exp_crystal.gd" id="1_nsbkb"]
+[ext_resource type="AudioStream" uid="uid://b5dpk4bybcunl" path="res://Assets/SFX/collect.mp3" id="3_wmhsk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ftdh0"]
+radius = 4.0
+height = 10.0
+
+[node name="ExpCrystal" type="Area2D"]
+scale = Vector2(0.6, 0.6)
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_nsbkb")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_fh0qi")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ftdh0")
+
+[node name="CollectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wmhsk")
+
+[connection signal="finished" from="CollectSound" to="." method="_on_collect_sound_finished"]

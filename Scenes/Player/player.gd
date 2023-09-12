@@ -111,3 +111,5 @@ func DEBUG() -> void:
 		health.apply_damage(1)
 	if Input.is_action_just_pressed("DEBUG_heal"):
 		health.apply_damage(-1)
+	if Input.is_action_just_pressed("DEBUG_add_exp"):
+		exp_component._add_experience(1)

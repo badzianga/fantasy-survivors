@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://ci1jf04gapemb" path="res://Resources/Tilesets/grasslands.tres" id="1_eumqk"]
 [ext_resource type="PackedScene" uid="uid://d1pi75lv7e76b" path="res://Scenes/Player/player.tscn" id="2_2v1se"]
 [ext_resource type="PackedScene" uid="uid://dvx2cp5hjvyyg" path="res://Scenes/Player/camera.tscn" id="3_hky3a"]
-[ext_resource type="PackedScene" uid="uid://cbdpfrpjxh58n" path="res://Scenes/Enemies/slime.tscn" id="4_pn8cq"]
+[ext_resource type="PackedScene" uid="uid://dtsxux3auif6n" path="res://Scenes/Misc/enemy_spawner.tscn" id="5_gh70k"]
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
@@ -23,32 +23,8 @@ layer_1/tile_data = PackedInt32Array(4, 131072, 1, 65540, 131072, 1, 131075, 0, 
 
 [node name="Loot" type="Node2D" parent="." groups=["LootNode"]]
 
-[node name="Slime" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(417, 282)
-
-[node name="Slime2" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(439, 321)
-
-[node name="Slime3" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(325, 248)
-
-[node name="Slime4" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(491, 234)
-
-[node name="Slime5" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(290, 289)
-
-[node name="Slime6" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(264, 336)
-
-[node name="Slime7" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(355, 365)
-
-[node name="Slime8" parent="." instance=ExtResource("4_pn8cq")]
-position = Vector2(386, 240)
-
 [node name="Player" parent="." instance=ExtResource("2_2v1se")]
-position = Vector2(364, 316)
+position = Vector2(368, 304)
 
 [node name="Camera" parent="Player" instance=ExtResource("3_hky3a")]
 position_smoothing_enabled = true
@@ -56,5 +32,7 @@ position_smoothing_speed = 2.0
 
 [node name="BottomRight" parent="Player/Camera/Positions" index="1"]
 position = Vector2(640, 480)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("5_gh70k")]
 
 [editable path="Player/Camera"]

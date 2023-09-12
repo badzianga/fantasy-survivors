@@ -1,12 +1,19 @@
 extends Node2D
 
+
 @export var spawn_radius := 96
 const SpawnIndicatorScene = preload("res://Scenes/Misc/spawn_indicator.tscn")
 const SlimeScene = preload("res://Scenes/Enemies/slime.tscn")
 
 
+func _ready() -> void:
+	for i in randi_range(1, 3):
+		_prepare_spawn()
+
+
 func _on_timer_timeout() -> void:
-	_prepare_spawn()
+	for i in randi_range(1, 3):
+		_prepare_spawn()
 
 
 func _prepare_spawn() -> void:

@@ -8,7 +8,7 @@ signal timer_finished(indicator: SpawnIndicator)
 
 
 func _physics_process(_delta: float) -> void:
-	modulate.a = 255 * int(sin(timer.time_left * 16) >= 0)
+	modulate.a = 255 * int(sin((timer.wait_time - timer.time_left) * 16) >= 0)
 
 
 func _on_timer_timeout() -> void:

@@ -25,8 +25,11 @@ var smoothed_mouse_pos := Vector2.ZERO
 func _ready() -> void:
 	Hud.set_max_health(health.max_health)
 	Hud.set_health(health.health)
+	Hud.set_level(exp_component.level)
+	Hud.set_max_exp(exp_component.experience_to_next_level)
 	health.health_changed.connect(_on_health_changed)
 	exp_component.exp_updated.connect(_on_exp_updated)
+	exp_component.exp_updated.connect(_on_levelled_up)
 
 	GameData.player = self
 
@@ -96,6 +99,11 @@ func _on_health_changed() -> void:
 
 func _on_exp_updated() -> void:
 	Hud.set_exp(exp_component.experience)
+
+
+func _on_levelled_up() -> void:
+	Hud.set_max_exp(exp_component.experience_to_next_level)
+	Hud.set_level(exp_component.level)
 
 
 func DEBUG() -> void:
